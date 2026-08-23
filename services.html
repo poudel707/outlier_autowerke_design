@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services — Outlier Autowerke</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: "#FAFAF9",
+                        ink: "#111111",
+                        steel: "#6E6E6A",
+                        hair: "#DDDCD7",
+                        panel: "#F1F0EC",
+                        oxide: "#C8451B",
+                    },
+                    fontFamily: {
+                        display: ["Oswald", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        mono: ["IBM Plex Mono", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fafaf9;
+        }
+
+        .font-display {
+            text-transform: uppercase;
+            letter-spacing: 0.005em;
+        }
+
+        .plate {
+            font-family: "IBM Plex Mono", monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .shot {
+            position: relative;
+            background-color: #e7e5df;
+            background-image: repeating-linear-gradient(135deg,
+                    rgba(17, 17, 17, 0.06) 0px,
+                    rgba(17, 17, 17, 0.06) 1px,
+                    transparent 1px,
+                    transparent 14px);
+            overflow: hidden;
+        }
+
+        .shot::after {
+            content: attr(data-shot);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-family: "IBM Plex Mono", monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.65rem;
+            color: #6e6e6a;
+            background: #fafaf9;
+            border: 1px solid #dddcd7;
+            padding: 6px 12px;
+            white-space: nowrap;
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        .ticks {
+            position: relative;
+        }
+
+        .ticks::before,
+        .ticks::after,
+        .ticks .tick-br,
+        .ticks .tick-bl {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: #fafaf9;
+            opacity: 0.85;
+        }
+
+        .ticks::before {
+            top: 10px;
+            left: 10px;
+            border-top: 1.5px solid;
+            border-left: 1.5px solid;
+        }
+
+        .ticks::after {
+            top: 10px;
+            right: 10px;
+            border-top: 1.5px solid;
+            border-right: 1.5px solid;
+        }
+
+        .ticks .tick-bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom: 1.5px solid;
+            border-left: 1.5px solid;
+        }
+
+        .ticks .tick-br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom: 1.5px solid;
+            border-right: 1.5px solid;
+        }
+
+        .btn-primary {
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.82;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #nav {
+            transition:
+                background-color 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        #nav.solid {
+            background-color: #fafaf9;
+            border-bottom: 1px solid #dddcd7;
+        }
+
+        /* sticky service index */
+        .idx-link {
+            transition: all 0.2s ease;
+        }
+
+        .idx-link.active {
+            color: #111;
+            border-left-color: #111;
+            padding-left: 20px;
+        }
+
+        .idx-link:not(.active) {
+            color: #6e6e6a;
+            border-left-color: transparent;
+            padding-left: 16px;
+        }
+
+        .service-block:target {
+            scroll-margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body class="font-body text-ink antialiased">
+    <!-- NAV -->
+    <header id="nav" class="fixed top-0 left-0 right-0 z-50 border-b border-transparent bg-base">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-20">
+            <a href="index.html" class="font-mono text-sm tracking-widest font-semibold">
+                OUTLIER <BR> AUTOWERKE
+                <!-- <span class="hidden md:block text-[10px] text-steel font-medium tracking-widest mt-0.5">INDEPENDENT
+                    WORKSHOP — ADELAIDE, SA</span> -->
+            </a>
+            <nav class="hidden md:flex items-center gap-9 font-mono text-xs tracking-widest">
+                <a href="index.html" class="hover:text-steel transition">HOME</a>
+                <a href="projects.html" class="hover:text-steel transition">PROJECTS</a>
+                <a href="services.html" class="text-ink border-b border-ink pb-1">SERVICES</a>
+                <a href="about.html" class="hover:text-steel transition">ABOUT</a>
+                <a href="contact.html" class="hover:text-steel transition">CONTACT</a>
+            </nav>
+            <a href="contact.html"
+                class="hidden md:inline-block bg-ink text-base font-mono text-xs tracking-widest px-5 py-3 btn-primary">INQUIRY</a>
+            <button id="menuBtn" class="md:hidden font-mono text-xs tracking-widest border border-ink px-3 py-2">
+                MENU
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div id="mobileNav" class="fixed inset-0 z-40 bg-base hidden flex-col justify-between p-8 pt-28">
+        <nav class="flex flex-col gap-6 font-display text-4xl font-semibold">
+            <a href="outlier-autowerke-home.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <a href="contact.html"
+            class="w-full text-center bg-ink text-base font-mono text-xs tracking-widest px-5 py-4">INQUIRY</a>
+    </div>
+
+    <!-- PAGE HEADER -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pt-40 pb-16">
+        <div class="plate text-steel mb-4 reveal">CAPABILITIES</div>
+        <h1 class="font-display font-semibold text-4xl md:text-6xl leading-[1.02] max-w-2xl reveal">
+            Services
+        </h1>
+        <p class="text-steel mt-5 max-w-lg reveal">
+            Five things we do, done properly — from full restorations to a
+            second opinion before you buy.
+        </p>
+    </section>
+
+    <!-- SERVICES LAYOUT -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 pb-28 grid md:grid-cols-12 gap-10">
+        <!-- STICKY INDEX -->
+        <aside class="md:col-span-3 hidden md:block">
+            <nav id="serviceIndex" class="sticky top-28 flex flex-col gap-1 border-l border-hair">
+                <a href="#restoration" class="idx-link active border-l-2 py-2 font-mono text-xs tracking-widest">01 —
+                    RESTORATION</a>
+                <a href="#modification" class="idx-link border-l-2 py-2 font-mono text-xs tracking-widest">02 —
+                    MODIFICATION</a>
+                <a href="#fabrication" class="idx-link border-l-2 py-2 font-mono text-xs tracking-widest">03 —
+                    FABRICATION</a>
+                <a href="#diagnostics" class="idx-link border-l-2 py-2 font-mono text-xs tracking-widest">04 —
+                    DIAGNOSTICS &amp; MECH.</a>
+                <a href="#consulting" class="idx-link border-l-2 py-2 font-mono text-xs tracking-widest">05 —
+                    CONSULTING</a>
+            </nav>
+        </aside>
+
+        <!-- SERVICE DETAILS -->
+        <div class="md:col-span-9 flex flex-col">
+            <!-- 01 RESTORATION -->
+            <div id="restoration" class="service-block py-14 border-b border-hair reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <div class="plate text-steel mb-3">01</div>
+                        <h2 class="font-display font-semibold text-3xl mb-4">
+                            Restoration
+                        </h2>
+                        <p class="text-steel leading-relaxed mb-6">
+                            Ground-up and sympathetic restorations that stay
+                            true to the car's original character. From full
+                            strip-down to final assembly, every stage is
+                            documented, so you always know exactly what's
+                            been done and why.
+                        </p>
+                        <div class="plate text-ink mb-3">
+                            WHAT'S INCLUDED
+                        </div>
+                        <ul class="text-sm text-steel space-y-2 mb-6">
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Full
+                                strip-down &amp; condition assessment
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Rust repair
+                                &amp; panel work
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Mechanical
+                                rebuild to original or upgraded spec
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Paint &amp;
+                                trim coordination
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Full
+                                photographic build record
+                            </li>
+                        </ul>
+                        <a href="contact.html?service=Restoration"
+                            class="inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">ENQUIRE
+                            ABOUT THIS SERVICE →</a>
+                    </div>
+                    <div>
+                        <div class="shot ticks aspect-[4/3] relative overflow-hidden mb-4"
+                            data-shot="Restoration in progress — bare metal panel work">
+                            <div class="tick-bl"></div>
+                            <div class="tick-br"></div>
+                        </div>
+                        <div class="plate text-steel mb-2">
+                            RELATED PROJECTS
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="1972 Datsun 240Z"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-014 · DATSUN 240Z
+                                </p>
+                            </a>
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Land Rover Series IIA"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-012 · LAND ROVER
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 02 MODIFICATION -->
+            <div id="modification" class="service-block py-14 border-b border-hair reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <div class="plate text-steel mb-3">02</div>
+                        <h2 class="font-display font-semibold text-3xl mb-4">
+                            Modification
+                        </h2>
+                        <p class="text-steel leading-relaxed mb-6">
+                            Performance, handling and styling upgrades built
+                            around how you actually drive the car — not just
+                            a parts list. We plan the build around your
+                            goals before anything gets touched.
+                        </p>
+                        <div class="plate text-ink mb-3">
+                            WHAT'S INCLUDED
+                        </div>
+                        <ul class="text-sm text-steel space-y-2 mb-6">
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Build
+                                planning &amp; parts sourcing
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Suspension,
+                                brake &amp; engine upgrades
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Cosmetic
+                                &amp; interior modification
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Tuning
+                                coordination with trusted partners
+                            </li>
+                        </ul>
+                        <a href="contact.html?service=Modification"
+                            class="inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">ENQUIRE
+                            ABOUT THIS SERVICE →</a>
+                    </div>
+                    <div>
+                        <div class="shot ticks aspect-[4/3] relative overflow-hidden mb-4"
+                            data-shot="Suspension and engine build — modification in progress">
+                            <div class="tick-bl"></div>
+                            <div class="tick-br"></div>
+                        </div>
+                        <div class="plate text-steel mb-2">
+                            RELATED PROJECTS
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="BMW E30 Touring"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-013 · E30 TOURING
+                                </p>
+                            </a>
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Datsun 1200 Ute turbo"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-010 · DATSUN UTE
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 03 FABRICATION -->
+            <div id="fabrication" class="service-block py-14 border-b border-hair reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <div class="plate text-steel mb-3">03</div>
+                        <h2 class="font-display font-semibold text-3xl mb-4">
+                            Fabrication
+                        </h2>
+                        <p class="text-steel leading-relaxed mb-6">
+                            Custom metalwork, mounts, cages and one-off
+                            parts made in-house — for when what you need
+                            doesn't exist off the shelf.
+                        </p>
+                        <div class="plate text-ink mb-3">
+                            WHAT'S INCLUDED
+                        </div>
+                        <ul class="text-sm text-steel space-y-2 mb-6">
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Roll cages
+                                &amp; chassis reinforcement
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Custom
+                                brackets, mounts &amp; panels
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Exhaust
+                                &amp; intake fabrication
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> One-off
+                                parts from concept sketch to finished piece
+                            </li>
+                        </ul>
+                        <a href="contact.html?service=Fabrication"
+                            class="inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">ENQUIRE
+                            ABOUT THIS SERVICE →</a>
+                    </div>
+                    <div>
+                        <div class="shot ticks aspect-[4/3] relative overflow-hidden mb-4"
+                            data-shot="Custom roll cage — welding detail">
+                            <div class="tick-bl"></div>
+                            <div class="tick-br"></div>
+                        </div>
+                        <div class="plate text-steel mb-2">
+                            RELATED PROJECTS
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Track-day cage build"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-011 · CAGE BUILD
+                                </p>
+                            </a>
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Custom exhaust fabrication"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-007 · EXHAUST FAB
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 04 DIAGNOSTICS -->
+            <div id="diagnostics" class="service-block py-14 border-b border-hair reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <div class="plate text-steel mb-3">04</div>
+                        <h2 class="font-display font-semibold text-3xl mb-4">
+                            Diagnostics &amp; Mechanical
+                        </h2>
+                        <p class="text-steel leading-relaxed mb-6">
+                            Honest diagnosis and everyday mechanical work
+                            for daily drivers and project cars alike — no
+                            upselling, no guesswork.
+                        </p>
+                        <div class="plate text-ink mb-3">
+                            WHAT'S INCLUDED
+                        </div>
+                        <ul class="text-sm text-steel space-y-2 mb-6">
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span>
+                                Fault-finding &amp; diagnostics
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Servicing
+                                &amp; routine maintenance
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span>
+                                Pre-restoration mechanical assessment
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Clear,
+                                plain-language repair reports
+                            </li>
+                        </ul>
+                        <a href="contact.html?service=Diagnostics"
+                            class="inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">ENQUIRE
+                            ABOUT THIS SERVICE →</a>
+                    </div>
+                    <div>
+                        <div class="shot ticks aspect-[4/3] relative overflow-hidden mb-4"
+                            data-shot="Mechanic diagnosing engine bay issue">
+                            <div class="tick-bl"></div>
+                            <div class="tick-br"></div>
+                        </div>
+                        <div class="plate text-steel mb-2">
+                            RELATED PROJECTS
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Alfa Romeo Spider mechanical assessment">
+                                </div>
+                                <p class="plate text-steel mt-2">
+                                    WO-008 · ALFA SPIDER
+                                </p>
+                            </a>
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="VW Kombi pre-purchase check"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-009 · VW KOMBI
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 05 CONSULTING -->
+            <div id="consulting" class="service-block py-14 reveal">
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <div class="plate text-steel mb-3">05</div>
+                        <h2 class="font-display font-semibold text-3xl mb-4">
+                            Consulting
+                        </h2>
+                        <p class="text-steel leading-relaxed mb-6">
+                            Pre-purchase inspections and build planning for
+                            owners taking on their own project — an honest
+                            second opinion before you commit time or money.
+                        </p>
+                        <div class="plate text-ink mb-3">
+                            WHAT'S INCLUDED
+                        </div>
+                        <ul class="text-sm text-steel space-y-2 mb-6">
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Pre-purchase
+                                inspection &amp; written report
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Build &amp;
+                                budget planning
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Parts &amp;
+                                sourcing guidance
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-ink">—</span> Project
+                                scoping for owner-led builds
+                            </li>
+                        </ul>
+                        <a href="contact.html?service=Consulting"
+                            class="inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">ENQUIRE
+                            ABOUT THIS SERVICE →</a>
+                    </div>
+                    <div>
+                        <div class="shot ticks aspect-[4/3] relative overflow-hidden mb-4"
+                            data-shot="Pre-purchase inspection — clipboard and vehicle">
+                            <div class="tick-bl"></div>
+                            <div class="tick-br"></div>
+                        </div>
+                        <div class="plate text-steel mb-2">
+                            RELATED PROJECTS
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Client build planning session"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-005 · BUILD PLAN
+                                </p>
+                            </a>
+                            <a href="projects.html" class="block">
+                                <div class="shot aspect-[4/3]" data-shot="Pre-purchase inspection report"></div>
+                                <p class="plate text-steel mt-2">
+                                    WO-003 · PPI REPORT
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="bg-ink text-base py-24 text-center px-6">
+        <div class="plate text-white/50 mb-4 reveal">
+            NOT SURE WHICH ONE YOU NEED?
+        </div>
+        <h2 class="font-display font-semibold text-3xl md:text-5xl max-w-xl mx-auto leading-[1.05] reveal">
+            Tell us about the car — we'll point you the right way.
+        </h2>
+        <a href="contact.html"
+            class="mt-9 inline-block bg-white text-ink font-mono text-xs tracking-widest px-7 py-4 btn-primary">START AN
+            INQUIRY</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="max-w-7xl mx-auto px-6 md:px-10 py-14 grid md:grid-cols-4 gap-10">
+        <div class="md:col-span-2">
+            <div class="font-mono text-sm tracking-widest font-semibold">
+                OUTLIER AUTOWERKE
+            </div>
+            <p class="plate text-steel mt-2">
+                INDEPENDENT WORKSHOP — ADELAIDE, SOUTH AUSTRALIA
+            </p>
+        </div>
+        <div>
+            <div class="plate text-steel mb-3">NAVIGATE</div>
+            <ul class="space-y-2 text-sm">
+                <li>
+                    <a href="outlier-autowerke-home.html" class="hover:text-steel">Home</a>
+                </li>
+                <li>
+                    <a href="projects.html" class="hover:text-steel">Projects</a>
+                </li>
+                <li><a href="#" class="hover:text-steel">Services</a></li>
+                <li>
+                    <a href="about.html" class="hover:text-steel">About</a>
+                </li>
+                <li>
+                    <a href="contact.html" class="hover:text-steel">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="plate text-steel mb-3">CONNECT</div>
+            <ul class="space-y-2 text-sm">
+                <li><a href="#" class="hover:text-steel">Instagram</a></li>
+                <li><a href="#" class="hover:text-steel">Facebook</a></li>
+                <li>
+                    <a href="#" class="hover:text-steel">hello@outlierautowerke.com.au</a>
+                </li>
+            </ul>
+        </div>
+        <div
+            class="md:col-span-4 border-t border-hair pt-6 mt-4 flex flex-col md:flex-row justify-between gap-2 plate text-steel">
+            <span>© 2026 OUTLIER AUTOWERKE. ALL RIGHTS RESERVED.</span>
+            <span>DESIGN CONCEPT — NOT FOR PRODUCTION USE</span>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById("nav");
+        window.addEventListener("scroll", () =>
+            nav.classList.toggle("solid", window.scrollY > 20),
+        );
+
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileNav = document.getElementById("mobileNav");
+        menuBtn.addEventListener("click", () => {
+            const isOpen = !mobileNav.classList.contains("hidden");
+            mobileNav.classList.toggle("hidden", isOpen);
+            mobileNav.classList.toggle("flex", !isOpen);
+            menuBtn.textContent = isOpen ? "MENU" : "CLOSE";
+        });
+
+        const revealEls = document.querySelectorAll(".reveal");
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in");
+                        io.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.1 },
+        );
+        revealEls.forEach((el) => io.observe(el));
+
+        // active state on sticky index, based on scroll position
+        const blocks = document.querySelectorAll(".service-block");
+        const links = document.querySelectorAll(".idx-link");
+        const linkFor = (id) =>
+            document.querySelector(`.idx-link[href="#${id}"]`);
+
+        const sectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        links.forEach((l) => l.classList.remove("active"));
+                        const active = linkFor(entry.target.id);
+                        if (active) active.classList.add("active");
+                    }
+                });
+            },
+            { rootMargin: "-40% 0px -50% 0px", threshold: 0 },
+        );
+        blocks.forEach((b) => sectionObserver.observe(b));
+    </script>
+</body>
+
+</html>

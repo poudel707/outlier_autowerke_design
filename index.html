@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Outlier Autowerke — Independent Automotive Workshop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        base: "#FAFAF9",
+                        ink: "#111111",
+                        steel: "#6E6E6A",
+                        hair: "#DDDCD7",
+                        panel: "#F1F0EC",
+                        oxide: "#C8451B",
+                    },
+                    fontFamily: {
+                        display: ["Oswald", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                        mono: ["IBM Plex Mono", "monospace"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fafaf9;
+        }
+
+        .font-display {
+            text-transform: uppercase;
+            letter-spacing: 0.005em;
+        }
+
+        .plate {
+            font-family: "IBM Plex Mono", monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.82;
+        }
+
+        .card-img {
+            transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.045);
+        }
+
+        .card-overlay {
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .card:hover .card-overlay,
+        .card:focus-within .card-overlay {
+            opacity: 1;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #nav {
+            transition:
+                background-color 0.3s ease,
+                border-color 0.3s ease,
+                padding 0.3s ease;
+            color: #fafaf9;
+        }
+
+        #nav a,
+        #nav button {
+            color: inherit;
+        }
+
+        #nav.is-solid {
+            background-color: #fafaf9;
+            border-bottom: 1px solid #dddcd7;
+            color: #111111;
+        }
+
+        #nav .inquiry-link {
+            color: #fafaf9;
+        }
+
+        #nav .desktop-nav a {
+            position: relative;
+            padding-bottom: 0.35rem;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        #nav .desktop-nav a::after {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: #c8451b;
+            content: "";
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.25s ease;
+        }
+
+        #nav .desktop-nav a:hover,
+        #nav .desktop-nav a:focus-visible {
+            color: #c8451b;
+            transform: translateY(-2px);
+        }
+
+        #nav .desktop-nav a:hover::after,
+        #nav .desktop-nav a:focus-visible::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    </style>
+</head>
+
+<body class="font-body text-ink antialiased">
+    <!-- NAV -->
+    <header id="nav" class="fixed top-0 left-0 right-0 z-50 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-20">
+            <a href="index.html" class="font-mono text-sm tracking-widest font-semibold">
+                OUTLIER <BR> AUTOWERKE
+            </a>
+            <nav class="desktop-nav hidden md:flex items-center gap-9 font-mono text-sm tracking-widest">
+                <a href="index.html" class="hover:text-steel transition">HOME</a>
+                <a href="projects.html" class="hover:text-steel transition">PROJECTS</a>
+                <a href="services.html" class="hover:text-steel transition">SERVICES</a>
+                <a href="about.html" class="hover:text-steel transition">ABOUT</a>
+                <a href="contact.html" class="hover:text-steel transition">CONTACT</a>
+            </nav>
+            <a href="contact.html"
+                class="inquiry-link hidden md:inline-block bg-ink text-base font-mono text-sm tracking-widest px-5 py-3 btn-primary">INQUIRY</a>
+            <button id="menuBtn" class="md:hidden font-mono text-xs tracking-widest border border-ink px-3 py-2">
+                MENU
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAV -->
+    <div id="mobileNav" class="fixed inset-0 z-40 bg-base hidden flex-col justify-between p-8 pt-28">
+        <nav class="flex flex-col gap-6 font-display text-4xl font-semibold">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <a href="contact.html"
+            class="w-full text-center bg-ink text-base font-mono text-xs tracking-widest px-5 py-4">INQUIRY</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="relative h-[100svh] min-h-[520px] "
+        data-shot="Hero photo — 1972 Datsun 240Z, 3/4 front, workshop bay, low natural light">
+        <!-- Hero Image -->
+        <img src="images/hero-image.png" alt="1972 Datsun 240Z in workshop"
+            class="absolute inset-0 w-full h-full object-cover  object-[25%_75%]">
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent"></div>
+
+
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+        <div class="relative h-full max-w-7xl mx-auto px-6 md:px-10 flex flex-col justify-end pb-20">
+            <div class="plate text-white/70 border border-white/30 inline-block px-3 py-1 mb-6 w-fit">
+                Adelaide, South Australia - Est. Workshop
+            </div>
+            <h1
+                class="font-display font-semibold text-white text-5xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight max-w-3xl">
+                Built on the<br>floor, not in<br>a boardroom.
+            </h1>
+            <p class="text-white/75 mt-6 max-w-md text-base md:text-lg font-medium">
+                Outlier Autowerke is an independent workshop for automotive restoration, modification and
+                custom fabrication - where every project is a collaboration between craft and client.
+            </p>
+            <div class="flex flex-wrap gap-4 mt-9">
+                <a href="#projects"
+                    class="bg-white text-ink font-mono text-xs tracking-widest px-6 py-4 btn-primary">EXPLORE OUR
+                    PROJECTS</a>
+                <a href="#services"
+                    class="border border-white/60 text-white font-mono text-xs tracking-widest px-6 py-4 hover:bg-white hover:text-ink transition">OUR
+                    SERVICES</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-12 gap-10">
+        <div class="md:col-span-7 reveal">
+            <div class="plate text-steel mb-5">WHAT WE DO</div>
+            <h2 class="font-display font-semibold text-3xl md:text-5xl leading-[1.05] max-w-xl">
+                A small workshop that restores, modifies and builds — and
+                documents every step.
+            </h2>
+            <p class="text-steel mt-6 max-w-lg leading-relaxed">
+                Outlier Autowerke takes on restorations, modifications and
+                one-off automotive projects for owners who want the work
+                done properly, explained honestly, and photographed along
+                the way. Every car that comes through the bay gets its own
+                build sheet — from intake to final result.
+            </p>
+        </div>
+        <div class="md:col-span-5 flex flex-col justify-end gap-4">
+            <div class="border border-hair p-6">
+                <div class="font-mono text-3xl font-semibold">12+</div>
+                <div class="plate text-steel mt-1">YEARS ON THE TOOLS</div>
+            </div>
+            <div class="border border-hair p-6">
+                <div class="font-mono text-3xl font-semibold">40+</div>
+                <div class="plate text-steel mt-1">
+                    WORK ORDERS COMPLETED
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PROJECTS -->
+    <section id="projects" class="max-w-7xl mx-auto px-6 md:px-10 pb-24 md:pb-32">
+        <div class="flex items-end justify-between mb-10 reveal">
+            <div>
+                <div class="plate text-steel mb-3">
+                    SELECTED WORK ORDERS
+                </div>
+                <h2 class="font-display font-semibold text-3xl md:text-4xl">
+                    Featured Projects
+                </h2>
+            </div>
+            <a href="projects.html"
+                class="hidden md:inline font-mono text-xs tracking-widest border-b border-ink pb-1 hover:text-steel hover:border-steel transition">VIEW
+                ALL PROJECTS →</a>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="card reveal" tabindex="0">
+                <div class="aspect-[4/5] relative overflow-hidden">
+                    <img src="images/project1.png" alt="1972 Datsun 240Z — strip-down, garage bay"
+                        class="card-img absolute inset-0 w-full h-full object-cover object-[25%_75%]">
+
+                    <div
+                        class="card-overlay absolute inset-0 z-10 flex flex-col justify-end bg-black/75 p-5 text-white">
+                        <h4 class="font-display text-xl font-medium">1972 Datsun 240Z</h4>
+                        <p class="mt-1 text-sm leading-relaxed text-white/75">Stripped to shell, repaired and rebuilt
+                            for a faithful road-ready restoration.</p>
+                    </div>
+
+                    <div class="plate absolute top-3 left-3 bg-base border border-hair px-2 py-1 z-10">
+                        WO-014 · ONGOING
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <h3 class="font-display font-medium text-lg">
+                        1972 Datsun 240Z
+                    </h3>
+                    <p class="plate text-steel mt-1">FULL RESTORATION</p>
+                </div>
+            </div>
+            <div class="card reveal" tabindex="0">
+                <div class="aspect-[4/5] relative overflow-hidden">
+                    <img src="images/project2.png" alt="E30 3-Series Touring — engine bay detail"
+                        class="card-img absolute inset-0 w-full h-full object-cover object-[25%_75%]">
+                    <div
+                        class="card-overlay absolute inset-0 z-10 flex flex-col justify-end bg-black/75 p-5 text-white">
+                        <h4 class="font-display text-xl font-medium">BMW E30 Touring</h4>
+                        <p class="mt-1 text-sm leading-relaxed text-white/75">Suspension, engine and cooling upgrades
+                            for sharper daily miles.</p>
+                    </div>
+                    <div class="plate absolute top-3 left-3 bg-base border border-hair px-2 py-1 z-10">
+                        WO-011 · COMPLETED
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <h3 class="font-display font-medium text-lg">
+                        BMW E30 Touring
+                    </h3>
+                    <p class="plate text-steel mt-1">
+                        SUSPENSION &amp; ENGINE BUILD
+                    </p>
+                </div>
+            </div>
+            <div class="card reveal" tabindex="0">
+                <div class="aspect-[4/5] relative overflow-hidden">
+                    <img src="images/project3.png" alt="Custom roll cage fabrication, close detail"
+                        class="card-img absolute inset-0 w-full h-full object-cover object-[25%_75%]">
+                    <div
+                        class="card-overlay absolute inset-0 z-10 flex flex-col justify-end bg-black/75 p-5 text-white">
+                        <h4 class="font-display text-xl font-medium">Track-Day Cage Build</h4>
+                        <p class="mt-1 text-sm leading-relaxed text-white/75">A measured, TIG-welded cage fabricated for
+                            track-day safety.</p>
+                    </div>
+                    <div class="plate absolute top-3 left-3 bg-base border border-hair px-2 py-1 z-10">
+                        WO-009 · COMPLETED
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <h3 class="font-display font-medium text-lg">
+                        Track-Day Cage Build
+                    </h3>
+                    <p class="plate text-steel mt-1">CUSTOM FABRICATION</p>
+                </div>
+            </div>
+        </div>
+        <a href="projects.html"
+            class="md:hidden mt-8 inline-block font-mono text-xs tracking-widest border-b border-ink pb-1">VIEW
+            ALL PROJECTS →</a>
+    </section>
+
+    <!-- SERVICES (black section) -->
+    <section id="services" class="bg-ink text-base py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6 md:px-10">
+            <div class="plate text-white/50 mb-3 reveal">CAPABILITIES</div>
+            <h2 class="font-display font-semibold text-3xl md:text-4xl mb-14 reveal">
+                Services
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/15">
+                <div class="bg-ink p-8 reveal">
+                    <div class="plate text-white/40 mb-4">01</div>
+                    <h3 class="font-display font-medium text-xl mb-2">
+                        Restoration
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Ground-up and sympathetic restorations, staying true
+                        to the car's original character.
+                    </p>
+                </div>
+                <div class="bg-ink p-8 reveal">
+                    <div class="plate text-white/40 mb-4">02</div>
+                    <h3 class="font-display font-medium text-xl mb-2">
+                        Modification
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Performance, handling and styling upgrades built
+                        around how you actually drive the car.
+                    </p>
+                </div>
+                <div class="bg-ink p-8 reveal">
+                    <div class="plate text-white/40 mb-4">03</div>
+                    <h3 class="font-display font-medium text-xl mb-2">
+                        Fabrication
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Custom metalwork, mounts, cages and one-off parts,
+                        made in-house.
+                    </p>
+                </div>
+                <div class="bg-ink p-8 reveal">
+                    <div class="plate text-white/40 mb-4">04</div>
+                    <h3 class="font-display font-medium text-xl mb-2">
+                        Diagnostics &amp; Mechanical
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Honest diagnosis and mechanical work for daily
+                        drivers and project cars alike.
+                    </p>
+                </div>
+                <div class="bg-ink p-8 reveal">
+                    <div class="plate text-white/40 mb-4">05</div>
+                    <h3 class="font-display font-medium text-xl mb-2">
+                        Consulting
+                    </h3>
+                    <p class="text-white/60 text-sm leading-relaxed">
+                        Pre-purchase inspections and build planning for
+                        owners taking on their own project.
+                    </p>
+                </div>
+                <div class="bg-ink p-8 flex items-end reveal">
+                    <a href="services.html"
+                        class="font-mono text-xs tracking-widest border border-white/40 px-5 py-3 hover:bg-white hover:text-ink transition">VIEW
+                        ALL SERVICES →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE WORKSHOP -->
+    <section class="max-w-7xl mx-auto px-6 md:px-10 py-24 md:py-32">
+        <div class="grid md:grid-cols-12 gap-6 md:gap-10 items-stretch">
+            <div class="md:col-span-7 reveal">
+                <div class=" h-full min-h-[420px] relative">
+                    <img src="images/workshop.png" alt="Wide shot — hands wire-wheeling a panel, workshop light"
+                        class="absolute inset-0 w-full h-full object-cover  object-[25%_75%]">
+                </div>
+            </div>
+            <div class="md:col-span-5 flex flex-col gap-6">
+                <div class="reveal">
+                    <div class="plate text-steel mb-3">BEHIND THE WORK</div>
+                    <h2 class="font-display font-semibold text-3xl md:text-4xl mb-4">
+                        The Workshop
+                    </h2>
+                    <p class="text-steel leading-relaxed">
+                        Every project passes through the same bay - no
+                        outsourced bodywork, no black-box vendors. What you
+                        see photographed is what actually happened to your
+                        car, in order.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="aspect-square relative">
+                        <img src="images/workshop.png" alt="Tool wall detail"
+                            class="absolute inset-0 w-full h-full object-cover  object-[25%_75%]">
+                    </div>
+                    <div class="aspect-square relative">
+                        <img src="images/weld-seam-close-up.jpg" alt="Weld seam close-up"
+                            class="absolute inset-0 w-full h-full object-cover  object-[25%_75%]">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLABORATION -->
+    <section class="border-y border-hair bg-panel py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-12 gap-10 items-center">
+            <div class="md:col-span-7 reveal">
+                <div class="plate text-steel mb-3">WHO WE BUILD WITH</div>
+                <h2 class="font-display font-semibold text-3xl md:text-4xl leading-tight mb-5">
+                    Built through passion.<br />Driven by collaboration.
+                </h2>
+                <p class="text-steel max-w-lg leading-relaxed">
+                    Some of our best work has come from partnerships - with other shops, suppliers, photographers and
+                    enthusiasts who bring something to the table. If you've got a project, a skill, or an idea worth
+                    building, we want to hear it.
+
+
+                </p>
+                <a href="/contact.html"
+                    class="mt-8 inline-block bg-ink text-base font-mono text-xs tracking-widest px-6 py-4 btn-primary">LET'S
+                    COLLABORATE</a>
+            </div>
+            <div class="md:col-span-5 reveal">
+                <div class="aspect-square relative">
+                    <img src="images/collaboration.jpg" alt="Two people working on a car together, mid-collaboration"
+                        class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="bg-ink text-base py-24 md:py-32 text-center px-6">
+        <div class="plate text-white/50 mb-4 reveal">GET STARTED</div>
+        <h2 class="font-display font-semibold text-4xl md:text-6xl max-w-2xl mx-auto leading-[1.05] reveal">
+            Got a project <br> in mind?
+        </h2>
+        <p class="text-white/60 mt-5 max-w-md mx-auto reveal">
+            Tell us what you're building, restoring, or dreaming up - we'll take it from there.
+        </p>
+        <a href="contact.html"
+            class="mt-10 inline-block bg-white text-ink font-mono text-xs tracking-widest px-7 py-4 btn-primary">START
+            AN INQUIRY</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="max-w-7xl mx-auto px-6 md:px-10 py-14 grid md:grid-cols-4 gap-10">
+        <div class="md:col-span-2">
+            <div class="font-mono text-sm tracking-widest font-semibold">
+                OUTLIER AUTOWERKE
+            </div>
+            <p class="plate text-steel mt-2">
+                INDEPENDENT WORKSHOP — ADELAIDE, SOUTH AUSTRALIA
+            </p>
+        </div>
+        <div>
+            <div class="plate text-steel mb-3">NAVIGATE</div>
+            <ul class="space-y-2 text-sm">
+                <li>
+                    <a href="index.html" class="hover:text-steel">Home</a>
+                </li>
+                <li>
+                    <a href="projects.html" class="hover:text-steel">Projects</a>
+                </li>
+                <li>
+                    <a href="services.html" class="hover:text-steel">Services</a>
+                </li>
+                <li>
+                    <a href="about.html" class="hover:text-steel">About</a>
+                </li>
+                <li>
+                    <a href="contact.html" class="hover:text-steel">Contact</a>
+                </li>
+                <li><a href="privacy-policy.html" class="hover:text-steel">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="plate text-steel mb-3">CONNECT</div>
+            <ul class="space-y-2 text-sm">
+                <li>
+                    <a href="https://instagram.com" class="hover:text-steel">Instagram</a>
+                </li>
+                <li>
+                    <a href="https://facebook.com" class="hover:text-steel">Facebook</a>
+                </li>
+                <li>
+                    <a href="mailto:hello@outlierautowerke.com.au"
+                        class="hover:text-steel">hello@outlierautowerke.com.au</a>
+                </li>
+            </ul>
+        </div>
+        <div
+            class="md:col-span-4 border-t border-hair pt-6 mt-4 flex flex-col md:flex-row justify-between gap-2 plate text-steel">
+            <span>© 2026 OUTLIER AUTOWERKE. ALL RIGHTS RESERVED.</span>
+            <span>DESIGN CONCEPT — NOT FOR PRODUCTION USE</span>
+        </div>
+    </footer>
+
+    <script>
+        // Sticky nav solid background on scroll.
+        const nav = document.getElementById("nav");
+        const updateNav = () => nav.classList.toggle("is-solid", window.scrollY > 60);
+        updateNav();
+        window.addEventListener("scroll", updateNav, { passive: true });
+
+        // mobile menu toggle
+        const menuBtn = document.getElementById("menuBtn");
+        const mobileNav = document.getElementById("mobileNav");
+        menuBtn.addEventListener("click", () => {
+            const isOpen = !mobileNav.classList.contains("hidden");
+            mobileNav.classList.toggle("hidden", isOpen);
+            mobileNav.classList.toggle("flex", !isOpen);
+            menuBtn.textContent = isOpen ? "MENU" : "CLOSE";
+        });
+
+        // scroll reveal
+        const revealEls = document.querySelectorAll(".reveal");
+        const io = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("in");
+                        io.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.15 },
+        );
+        revealEls.forEach((el) => io.observe(el));
+    </script>
+</body>
+
+</html>
